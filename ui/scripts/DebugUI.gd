@@ -22,6 +22,6 @@ func _process(delta):
 		get_tree().quit()
 
 func _on_DebugTick_timeout():
-	speedLbl.text = "speed: " + str(player.linear_velocity) + str(player.angular_velocity)
+	speedLbl.text = "speed: " + str(player.linear_velocity) +" ang: "+ str(player.angular_velocity) + " - " +str(player.linear_velocity.length())
 	distanceLbl.text = "distance: " + str(player.starting_pos - player.translation)
 	
