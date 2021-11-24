@@ -1,0 +1,74 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://ui/scripts/DriverDash.gd" type="Script" id=1]
+
+[node name="DriverDash" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Forward" type="ColorRect" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 38.0
+margin_top = -58.0
+margin_right = 58.0
+margin_bottom = -38.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Right" type="ColorRect" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 64.0
+margin_top = -44.0
+margin_right = 84.0
+margin_bottom = -24.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Left" type="ColorRect" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 13.0
+margin_top = -44.0
+margin_right = 33.0
+margin_bottom = -24.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Back" type="ColorRect" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 38.0
+margin_top = -32.0
+margin_right = 58.0
+margin_bottom = -12.0
+
+[node name="Up" type="ColorRect" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 14.0
+margin_top = -109.0
+margin_right = 28.0
+margin_bottom = -92.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Down" type="ColorRect" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 14.0
+margin_top = -88.0
+margin_right = 28.0
+margin_bottom = -71.0
+__meta__ = {
+"_edit_use_anchors_": false
+}

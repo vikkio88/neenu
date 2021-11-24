@@ -1,0 +1,11 @@
+class_name DIRECTIONS
+
+enum DIRECTIONS {
+	UP,
+	DOWN,
+	FORWARD,
+	BACK,
+	LEFT,
+	RIGHT,
+	NONE
+}
