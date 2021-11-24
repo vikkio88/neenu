@@ -1,30 +1,20 @@
 extends Control
 
-enum DIRECTIONS {
-	UP,
-	DOWN,
-	FORWARD,
-	BACK,
-	LEFT,
-	RIGHT,
-	NONE
-}
-
 func report_direction(direction, active):
 	var green = Color(0,.7,0)
 	reset_directions()
 	match direction:
-		DIRECTIONS.FORWARD:
+		Enums.DIRECTIONS.FORWARD:
 			$Forward.color = green
-		DIRECTIONS.BACK:
+		Enums.DIRECTIONS.BACK:
 			$Back.color = green
-		DIRECTIONS.UP:
+		Enums.DIRECTIONS.UP:
 			$Up.color = green
-		DIRECTIONS.DOWN:
+		Enums.DIRECTIONS.DOWN:
 			$Down.color = green
-		DIRECTIONS.LEFT:
+		Enums.DIRECTIONS.LEFT:
 			$Left.color = green
-		DIRECTIONS.RIGHT:
+		Enums.DIRECTIONS.RIGHT:
 			$Right.color = green
 		_:
 			pass

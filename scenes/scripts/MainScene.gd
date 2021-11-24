@@ -2,7 +2,7 @@ extends Spatial
 
 
 func _on_Player_view_switched(view):
-	if view == 1:
+	if view == Enums.VIEW_MODES.TPV:
 		$UI/OverlayCanvas/DebugUI.hide()
 	else:
 		$UI/OverlayCanvas/DebugUI.show()

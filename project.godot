@@ -10,12 +10,12 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Reference",
-"class": "DIRECTIONS",
+"class": "Enums",
 "language": "GDScript",
-"path": "res://enums/Directions.gd"
+"path": "res://enums/Enums.gd"
 } ]
 _global_script_class_icons={
-"DIRECTIONS": ""
+"Enums": ""
 }
 
 [application]

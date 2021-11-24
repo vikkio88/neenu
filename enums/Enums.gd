@@ -1,4 +1,4 @@
-class_name DIRECTIONS
+class_name Enums
 
 enum DIRECTIONS {
 	UP,
@@ -8,4 +8,10 @@ enum DIRECTIONS {
 	LEFT,
 	RIGHT,
 	NONE
+}
+
+
+enum VIEW_MODES {
+	FPV,
+	TPV
 }
