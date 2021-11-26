@@ -22,7 +22,7 @@ light_energy = 4.376
 omni_range = 4096.0
 
 [node name="LightDown" type="OmniLight" parent="Player"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -100, 119.523 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -100, 15.5435 )
 omni_range = 4096.0
 
 [node name="Space" type="WorldEnvironment" parent="."]
