@@ -12,7 +12,7 @@ onready var view_mode = Enums.VIEW_MODES.FPV
 # y is up and down
 var last_burn_rotation: float = 0.0
 
-var camera_rotation_speed:float = 1.0
+onready var tp_camera_pivot: Node = $CameraPivot
 onready var tp_camera: Camera = $CameraPivot/TPCamera
 onready var fp_camera: Camera = $FPCamera
 onready var starting_pos: Vector3 = translation
@@ -22,9 +22,6 @@ onready var starting_pos: Vector3 = translation
 func _process(delta):
 	if Input.is_action_just_released("view_change"):
 		toggle_view()
-	
-	if view_mode == Enums.VIEW_MODES.TPV:
-		check_tpv_camera_input()
 
 func _physics_process(delta):
 	var torque = Vector3.ZERO
@@ -87,35 +84,12 @@ func get_driving_inputs() -> Array:
 		
 	return [torque, torque_type, burn_dir, dir_type]
 
-func check_tpv_camera_input():
-	# maybe those need to rotate with delta on an axis only maybe
-	# also might need to rotate camera too as it seems to be upside down
-	if Input.is_action_just_released("right"):
-		$CameraPivot.rotation_degrees.x = 0
-		$CameraPivot.rotation_degrees.z = -90
-		$CameraPivot/TPCamera.translation.y = 10
-	elif Input.is_action_just_released("left"):
-		$CameraPivot.rotation_degrees.x = 0
-		$CameraPivot.rotation_degrees.z = 90
-		$CameraPivot/TPCamera.translation.y = 10
-	elif Input.is_action_just_released("burn"):
-		$CameraPivot.rotation_degrees.z = 0
-		$CameraPivot.rotation_degrees.x = 90
-		$CameraPivot/TPCamera.translation.y = 10
-	elif Input.is_action_just_released("counter_burn"):
-		$CameraPivot.rotation_degrees.x = -90
-		$CameraPivot.rotation_degrees.z = 0
-		$CameraPivot/TPCamera.translation.y = 10
-	elif Input.is_action_just_released("toggle"):
-		$CameraPivot.rotation_degrees.x = 0
-		$CameraPivot.rotation_degrees.z = 0
-		$CameraPivot/TPCamera.translation.y = 100
-
 func toggle_view():
 	if view_mode == Enums.VIEW_MODES.FPV:
 		tp_camera.current = true
 		fp_camera.current = false
 		view_mode = Enums.VIEW_MODES.TPV
+		tp_camera_pivot.toggle_tpv()
 	else:
 		fp_camera.current = true
 		tp_camera.current = false
