@@ -1,5 +1,6 @@
 extends RigidBody
 
+signal notification(message)
 signal view_switched(view)
 signal direction_update(direction)
 signal torque_update(direction)
@@ -30,7 +31,8 @@ func _physics_process(delta):
 	var dir_type = null
 	
 	# if in FPV you can drive
-	if view_mode == Enums.VIEW_MODES.FPV:
+	# if camera in TPV is locked you can drive in FPV
+	if view_mode == Enums.VIEW_MODES.FPV or tp_camera_pivot.is_locked():
 		var inputs =  get_driving_inputs()
 		torque = inputs[0]
 		torque_type = inputs[1]
@@ -39,7 +41,8 @@ func _physics_process(delta):
 	
 	# this is so upper view camera wont rotate
 	if torque != Vector3.ZERO:
-		$CameraPivot.rotation = -rotation
+#		maybe can move this to a toggle too ?
+#		$CameraPivot.rotation = -rotation
 		add_torque(torque * rotation_speed * delta)
 		emit_signal("torque_update", torque_type)
 	
@@ -59,19 +62,23 @@ func get_driving_inputs() -> Array:
 		torque_type = Enums.DIRECTIONS.LEFT
 	
 	
-	var is_toggled = Input.is_action_pressed("toggle")
+	var is_toggled = Input.is_action_pressed("toggle_space")
 	var force = Vector3.ZERO
 	var burn_dir = null
 	var dir_type = null
 	
-	if Input.is_action_pressed("burn"):
+	if Input.is_action_pressed("up"):
 		last_burn_rotation = rotation.y
 		burn_dir = -1
 		dir_type = Enums.DIRECTIONS.FORWARD
-	elif Input.is_action_pressed("counter_burn"):
+		$BackLight/Wake/Particles.emitting = true
+	elif Input.is_action_pressed("down"):
 		last_burn_rotation = rotation.y
 		burn_dir = 1
 		dir_type = Enums.DIRECTIONS.BACK
+	
+	if Input.is_action_just_released("up"):
+		$BackLight/Wake/Particles.emitting = false
 		
 	
 	if burn_dir != null:
@@ -94,6 +101,10 @@ func toggle_view():
 		fp_camera.current = true
 		tp_camera.current = false
 		view_mode = Enums.VIEW_MODES.FPV
+		tp_camera_pivot.toggle_tpv()
 	
 	emit_signal("view_switched", view_mode)
 		
+
+func notify(message):
+	emit_signal("notification", message)

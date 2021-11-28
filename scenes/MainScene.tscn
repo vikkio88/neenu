@@ -61,14 +61,11 @@ autostart = true
 
 [node name="DriverDash" parent="UI/OverlayCanvas" instance=ExtResource( 6 )]
 
-[node name="Clock" type="Timer" parent="UI/OverlayCanvas/DriverDash"]
-wait_time = 1.5
-
 [node name="BigSphere" parent="." instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 200, 0, 0 )
 
 [connection signal="direction_update" from="Player" to="UI/OverlayCanvas/DriverDash" method="_on_Player_direction_update"]
+[connection signal="notification" from="Player" to="." method="_on_Player_notification"]
 [connection signal="torque_update" from="Player" to="UI/OverlayCanvas/DriverDash" method="_on_Player_torque_update"]
 [connection signal="view_switched" from="Player" to="." method="_on_Player_view_switched"]
 [connection signal="timeout" from="UI/OverlayCanvas/DebugTick" to="UI/OverlayCanvas/DebugUI" method="_on_DebugTick_timeout"]
-[connection signal="timeout" from="UI/OverlayCanvas/DriverDash/Clock" to="UI/OverlayCanvas/DriverDash" method="_on_Clock_tick"]

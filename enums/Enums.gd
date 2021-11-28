@@ -15,3 +15,8 @@ enum VIEW_MODES {
 	FPV,
 	TPV
 }
+
+enum TP_CAMERA_MODES {
+	LOCKED,
+	ACTIVE
+}

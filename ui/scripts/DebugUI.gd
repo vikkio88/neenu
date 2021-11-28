@@ -9,12 +9,24 @@ onready var bigSphereScn = load("res://scenes/tests/BigSphere.tscn")
 onready var sphereScn = load("res://scenes/tests/Sphere.tscn")
 
 func _ready():
-	for i in range(10):
+	var rng = RandomNumberGenerator.new()
+	
+	for i in range(40):
 		var s = sphereScn.instance()
 		s.translation = Vector3(0, 0, -30 * (i+1))
 		# if you dont defer this main is not ready to add
 		main.call_deferred("add_child", s)
-
+	
+	
+	for i in range(40):
+		var x = rng.randi_range(0, 10)
+		var y = rng.randi_range(0, 20)
+		var z = rng.randi_range(0, 10)
+		
+		var s = sphereScn.instance()
+		s.translation = Vector3(-30 * (i+1) + x, y, -30 * (i+1) + z)
+		# if you dont defer this main is not ready to add
+		main.call_deferred("add_child", s)
 
 
 func _process(delta):

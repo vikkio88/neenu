@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://models/ships/spaceship.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://scenes/scripts/Player.gd" type="Script" id=2]
 [ext_resource path="res://scenes/scripts/CameraPivot.gd" type="Script" id=3]
+[ext_resource path="res://scenes/effects/Wake.tscn" type="PackedScene" id=4]
 
 [sub_resource type="CapsuleShape" id=2]
 radius = 8.07
@@ -42,5 +43,9 @@ size = 80.0
 near = 1.02
 far = 4000.0
 
-[node name="DirectionalLight" type="DirectionalLight" parent="."]
+[node name="BackLight" type="DirectionalLight" parent="."]
 transform = Transform( 1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 5.46233 )
+light_color = Color( 0.239216, 0.756863, 0.937255, 1 )
+light_energy = 1.872
+
+[node name="Wake" parent="BackLight" instance=ExtResource( 4 )]

@@ -19,7 +19,7 @@ func report_direction(direction, active):
 		_:
 			pass
 	
-	$Clock.start()
+	$DirectionsResetClock.start()
 			
 func reset_directions():
 	var base_color = Color(1,1,1)
@@ -38,6 +38,16 @@ func _on_Player_direction_update(direction):
 func _on_Player_torque_update(direction):
 	report_direction(direction, true)
 
+func on_message(message):
+	$MessageLbl.text = message
+	$MessageResetClock.start()
 
-func _on_Clock_tick():
+func reset_message():
+	$MessageLbl.text = ''
+
+func _on_DirectionsResetClock_timeout():
 	reset_directions()
+
+
+func _on_MessageResetClock_timeout():
+	reset_message()

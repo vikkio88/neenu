@@ -72,3 +72,25 @@ margin_bottom = -71.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="DirectionsResetClock" type="Timer" parent="."]
+wait_time = 1.5
+
+[node name="MessageResetClock" type="Timer" parent="."]
+wait_time = 2.5
+one_shot = true
+
+[node name="MessageLbl" type="Label" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -170.0
+margin_top = 4.0
+margin_right = -3.0
+margin_bottom = 27.0
+size_flags_horizontal = 3
+custom_colors/font_color = Color( 0.980392, 0.972549, 0.972549, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+autowrap = true
+
+[connection signal="timeout" from="DirectionsResetClock" to="." method="_on_DirectionsResetClock_timeout"]
+[connection signal="timeout" from="MessageResetClock" to="." method="_on_MessageResetClock_timeout"]
