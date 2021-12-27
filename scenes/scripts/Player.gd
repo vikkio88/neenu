@@ -13,10 +13,12 @@ onready var view_mode = Enums.VIEW_MODES.FPV
 # y is up and down
 var last_burn_rotation: float = 0.0
 
+onready var stars: Node = $Stars;
 onready var tp_camera_pivot: Node = $CameraPivot
 onready var tp_camera: Camera = $CameraPivot/TPCamera
 onready var fp_camera: Camera = $FPCamera
 onready var starting_pos: Vector3 = translation
+
 
 
 
@@ -43,6 +45,9 @@ func _physics_process(delta):
 	if torque != Vector3.ZERO:
 #		maybe can move this to a toggle too ?
 #		$CameraPivot.rotation = -rotation
+
+#		This is to keep the skybox rotated if the ship is toquing
+		stars.rotation.y = clamp(-rotation.y, -360, 360);
 		add_torque(torque * rotation_speed * delta)
 		emit_signal("torque_update", torque_type)
 	

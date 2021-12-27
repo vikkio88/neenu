@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://models/ships/spaceship.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://scenes/scripts/Player.gd" type="Script" id=2]
@@ -13,6 +13,22 @@ height = 4.6919
 albedo_color = Color( 0.94902, 0.0313726, 0.0313726, 1 )
 metallic = 1.0
 metallic_specular = 0.67
+
+[sub_resource type="Shader" id=6]
+code = "shader_type spatial;
+
+void fragment () {
+	ALBEDO = vec3(0.5,0.,0.);
+	ALPHA = .1;
+}"
+
+[sub_resource type="ShaderMaterial" id=5]
+shader = SubResource( 6 )
+
+[sub_resource type="CubeMesh" id=7]
+material = SubResource( 5 )
+flip_faces = true
+size = Vector3( 500, 500, 500 )
 
 [node name="Player" type="RigidBody"]
 gravity_scale = 0.0
@@ -31,6 +47,7 @@ material/0 = SubResource( 1 )
 [node name="FPCamera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.90574, -2.98656 )
 current = true
+fov = 80.0
 far = 4096.0
 
 [node name="CameraPivot" type="Spatial" parent="."]
@@ -49,3 +66,7 @@ light_color = Color( 0.239216, 0.756863, 0.937255, 1 )
 light_energy = 1.872
 
 [node name="Wake" parent="BackLight" instance=ExtResource( 4 )]
+
+[node name="Stars" type="MeshInstance" parent="."]
+mesh = SubResource( 7 )
+material/0 = null
