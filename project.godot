@@ -24,6 +24,10 @@ config/name="neenu"
 run/main_scene="res://scenes/MainScene.tscn"
 config/icon="res://icon.png"
 
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/Line3D/plugin.cfg" )
+
 [input]
 
 right={

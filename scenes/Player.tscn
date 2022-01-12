@@ -1,34 +1,15 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://models/ships/spaceship.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://scenes/scripts/Player.gd" type="Script" id=2]
 [ext_resource path="res://scenes/scripts/CameraPivot.gd" type="Script" id=3]
 [ext_resource path="res://scenes/effects/Wake.tscn" type="PackedScene" id=4]
+[ext_resource path="res://addons/Line3D/Line3D.gd" type="Script" id=5]
+[ext_resource path="res://addons/Line3D/Line3D_material.tres" type="Material" id=6]
 
 [sub_resource type="CapsuleShape" id=2]
-radius = 8.07
-height = 4.6919
-
-[sub_resource type="SpatialMaterial" id=1]
-albedo_color = Color( 0.94902, 0.0313726, 0.0313726, 1 )
-metallic = 1.0
-metallic_specular = 0.67
-
-[sub_resource type="Shader" id=6]
-code = "shader_type spatial;
-
-void fragment () {
-	ALBEDO = vec3(0.5,0.,0.);
-	ALPHA = .1;
-}"
-
-[sub_resource type="ShaderMaterial" id=5]
-shader = SubResource( 6 )
-
-[sub_resource type="CubeMesh" id=7]
-material = SubResource( 5 )
-flip_faces = true
-size = Vector3( 500, 500, 500 )
+radius = 0.981371
+height = 5.41221
 
 [node name="Player" type="RigidBody"]
 gravity_scale = 0.0
@@ -36,19 +17,23 @@ linear_damp = -0.1
 script = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.04166, 1.54614 )
 shape = SubResource( 2 )
 
 [node name="spaceship" type="MeshInstance" parent="."]
-transform = Transform( 0.5, 0, 0, 0, -2.18557e-08, 0.5, 0, -0.5, -2.18557e-08, 0, 0, 0 )
+transform = Transform( 8.74228e-08, -2, -1.74846e-07, -2, -8.74228e-08, 0, -7.64274e-15, 1.74846e-07, -2, 0, 0, 0 )
 mesh = ExtResource( 1 )
-material/0 = SubResource( 1 )
+material/0 = null
+material/1 = null
+material/2 = null
+material/3 = null
 
 [node name="FPCamera" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.90574, -2.98656 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.90574, 0.0553871 )
 current = true
 fov = 80.0
-far = 4096.0
+near = 0.1
+far = 8192.0
 
 [node name="CameraPivot" type="Spatial" parent="."]
 script = ExtResource( 3 )
@@ -61,12 +46,17 @@ near = 1.02
 far = 4000.0
 
 [node name="BackLight" type="DirectionalLight" parent="."]
-transform = Transform( 1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 5.46233 )
+transform = Transform( 1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0.830222, 5.46233 )
 light_color = Color( 0.239216, 0.756863, 0.937255, 1 )
 light_energy = 1.872
 
-[node name="Wake" parent="BackLight" instance=ExtResource( 4 )]
+[node name="Plume" parent="BackLight" instance=ExtResource( 4 )]
 
-[node name="Stars" type="MeshInstance" parent="."]
-mesh = SubResource( 7 )
-material/0 = null
+[node name="Wake" type="ImmediateGeometry" parent="BackLight"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5.68028e-07, -6.49749 )
+material_override = ExtResource( 6 )
+script = ExtResource( 5 )
+points = [  ]
+width = 0.2
+global_coords = true
+default_color = Color( 0, 0.0862745, 1, 1 )

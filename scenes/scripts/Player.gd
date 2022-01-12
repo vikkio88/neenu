@@ -9,15 +9,17 @@ var rotation_speed: float = 100.0
 var boost_force: float = 200.0
 onready var view_mode = Enums.VIEW_MODES.FPV
 
+const MAX_WAKE: int = 1000
 
 # y is up and down
 var last_burn_rotation: float = 0.0
 
-onready var stars: Node = $Stars;
 onready var tp_camera_pivot: Node = $CameraPivot
 onready var tp_camera: Camera = $CameraPivot/TPCamera
 onready var fp_camera: Camera = $FPCamera
 onready var starting_pos: Vector3 = translation
+onready var plume: Node = $BackLight/Plume/Particles
+onready var wake: Node = $BackLight/Wake
 
 
 
@@ -47,13 +49,20 @@ func _physics_process(delta):
 #		$CameraPivot.rotation = -rotation
 
 #		This is to keep the skybox rotated if the ship is toquing
-		stars.rotation.y = clamp(-rotation.y, -360, 360);
 		add_torque(torque * rotation_speed * delta)
 		emit_signal("torque_update", torque_type)
 	
 	if burn_dir != null:
 		add_central_force(burn_dir * boost_force * delta)
 		emit_signal("direction_update", dir_type)
+	
+	if linear_velocity.normalized() != Vector3.ZERO:
+		if wake.points.size() <= MAX_WAKE:
+			wake.add_point(translation)
+		else:
+			wake.remove_point(0)
+	else:
+		wake.remove_point(0)
 
 func get_driving_inputs() -> Array:
 	var torque = Vector3.ZERO
@@ -76,14 +85,14 @@ func get_driving_inputs() -> Array:
 		last_burn_rotation = rotation.y
 		burn_dir = -1
 		dir_type = Enums.DIRECTIONS.FORWARD
-		$BackLight/Wake/Particles.emitting = true
+		plume.emitting = true
 	elif Input.is_action_pressed("down"):
 		last_burn_rotation = rotation.y
 		burn_dir = 1
 		dir_type = Enums.DIRECTIONS.BACK
 	
 	if Input.is_action_just_released("up"):
-		$BackLight/Wake/Particles.emitting = false
+		plume.emitting = false
 		
 	
 	if burn_dir != null:

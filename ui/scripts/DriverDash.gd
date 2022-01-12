@@ -21,7 +21,7 @@ func report_direction(direction, active):
 	
 	if node !=  null:
 		node.color = green
-		if directions_pushed.back() != node:
+		if !directions_pushed.has(node):
 			directions_pushed.push_back(node)
 	
 			
